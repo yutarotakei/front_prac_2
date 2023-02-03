@@ -12,6 +12,7 @@
       auto-grow
       value=""
     ></v-textarea>
+    <a href="#" class="btn-horizontal-border">BUTTON</a>
     <div class="display-4 font-weight-black text-xs-center mb-3">FOR YOUR LIFE</div>
           <div class="display-1 font-weight-bold text-xs-center">They are so cute!</div>
     </v-card>
@@ -80,5 +81,46 @@ h1 {
   border-bottom: double 5px #FFC778;
 }
 
+.btn-horizontal-border {
+  position: relative;
+  display: inline-block;
+  font-weight: bold;
+  padding: 12px 0 8px;
+  text-decoration: none;
+  color: #67c5ff;
+  transition: .4s;
+}
 
+.btn-horizontal-border:before {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 4px;
+  top:100%;
+  left: 0;
+  border-radius: 3px;
+  background:#67c5ff;
+  transition: .2s;
+}
+
+.btn-horizontal-border:after {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 4px;
+  top:0;
+  left: 0;
+  border-radius: 3px;
+  background:#67c5ff;
+  transition: .2s;
+}
+
+.btn-horizontal-border:hover:before {
+  top: -webkit-calc(100% - 3px);
+  top: calc(100% - 3px);
+}
+
+.btn-horizontal-border:hover:after {
+  top: 3px;
+}
 </style>
