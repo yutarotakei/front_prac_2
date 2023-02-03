@@ -1,124 +1,84 @@
 <template>
   <div class="about">
-    <h1>This is an home page</h1>
+    <h1>テクスト分析  </h1>
 
-    <v-sheet
-      tile
-      height="54"
-      class="d-flex"
+  <v-container fluid>
+    <v-card elevation="0">
+    <h2>テクストを手動で入力する</h2>
+    <v-textarea
+      name="input-7-1"
+      filled
+      label="テクストを手動で入力"
+      auto-grow
+      value=""
+    ></v-textarea>
+    <div class="display-4 font-weight-black text-xs-center mb-3">FOR YOUR LIFE</div>
+          <div class="display-1 font-weight-bold text-xs-center">They are so cute!</div>
+    </v-card>
+  </v-container>
+  <v-app>
+  <v-card>
+    <v-card-title>
+      <h1 class="display-1">ログイン</h1>
+    </v-card-title>
+    <v-card-text>
+      <v-form>
+        <v-text-field label="ユーザ名" />
+        <v-text-field label="パスワード" />
+      </v-form>
+    </v-card-text>
+  </v-card>
+</v-app>
+
+  <v-container>
+    <h2>ファイルをアップロードする</h2>
+    <v-file-input
+    accept="image/*"
+    label="File input"
+  ></v-file-input>
+    </v-container>
+
+
+  <v-container>
+        <h2>相関を調べたい単語を入れる</h2>
+    <v-row
+      justify="space-between"
     >
-      <v-btn
-        icon
-        class="ma-2"
-        @click="$refs.calendar.prev()"
+      <v-col
+        cols="12"
+        md="4"
       >
-        <v-icon>mdi-chevron-left</v-icon>
-      </v-btn>
-      <v-select
-        v-model="type"
-        :items="types"
-        dense
-        outlined
-        hide-details
-        class="ma-2"
-        label="type"
-      ></v-select>
-      <v-select
-        v-model="mode"
-        :items="modes"
-        dense
-        outlined
-        hide-details
-        label="event-overlap-mode"
-        class="ma-2"
-      ></v-select>
-      <v-select
-        v-model="weekday"
-        :items="weekdays"
-        dense
-        outlined
-        hide-details
-        label="weekdays"
-        class="ma-2"
-      ></v-select>
-      <v-spacer></v-spacer>
-      <v-btn
-        icon
-        class="ma-2"
-        @click="$refs.calendar.next()"
-      >
-        <v-icon>mdi-chevron-right</v-icon>
-      </v-btn>
-    </v-sheet>
-    <v-sheet height="600">
-      <v-calendar
-        ref="calendar"
-        v-model="value"
-        :weekdays="weekday"
-        :type="type"
-        :events="events"
-        :event-overlap-mode="mode"
-        :event-overlap-threshold="30"
-        :event-color="getEventColor"
-        @change="getEvents"
-      ></v-calendar>
-    </v-sheet>
+        <v-form ref="form">
+          <v-text-field
+            v-model="model"
+            :counter="max"
+            :rules="rules"
+            label="単語を入れる"
+          ></v-text-field>
+        </v-form>
+      </v-col>
+    </v-row>
+  </v-container>
+
+<v-container>
+ <h2>頻出度順の写真</h2>
+  <v-img
+  lazy-src="https://picsum.photos/id/11/10/6"
+  max-height="300"
+  max-width="414"
+  src="https://picsum.photos/id/11/500/300"
+></v-img>
+</v-container>
 
   </div>
 </template>
 
-<script>
-  export default {
-    data: () => ({
-      type: 'month',
-      types: ['month', 'week', 'day', '4day'],
-      mode: 'stack',
-      modes: ['stack', 'column'],
-      weekday: [0, 1, 2, 3, 4, 5, 6],
-      weekdays: [
-        { text: 'Sun - Sat', value: [0, 1, 2, 3, 4, 5, 6] },
-        { text: 'Mon - Sun', value: [1, 2, 3, 4, 5, 6, 0] },
-        { text: 'Mon - Fri', value: [1, 2, 3, 4, 5] },
-        { text: 'Mon, Wed, Fri', value: [1, 3, 5] },
-      ],
-      value: '',
-      events: [],
-      colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'],
-      names: ['Meeting', 'Holiday', 'Dinner', 'Travel', 'Event', 'Birthday', 'Conference', 'Party'],
-    }),
-    methods: {
-      getEvents ({ start, end }) {
-        const events = []
 
-        const min = new Date(`${start.date}T00:00:00`)
-        const max = new Date(`${end.date}T23:59:59`)
-        const days = (max.getTime() - min.getTime()) / 86400000
-        const eventCount = this.rnd(days, days + 20)
+<style scoped>
+h1 {
+  /*線の種類（二重線）太さ 色*/
+  border-bottom: double 5px #FFC778;
+}
 
-        for (let i = 0; i < eventCount; i++) {
-          const allDay = this.rnd(0, 3) === 0
-          const firstTimestamp = this.rnd(min.getTime(), max.getTime())
-          const first = new Date(firstTimestamp - (firstTimestamp % 900000))
-          const secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000
-          const second = new Date(first.getTime() + secondTimestamp)
 
-          events.push({
-            name: this.names[this.rnd(0, this.names.length - 1)],
-            start: first,
-            end: second,
-            color: this.colors[this.rnd(0, this.colors.length - 1)],
-            timed: !allDay,
-          })
-        }
-
-        this.events = events
-      },
-      getEventColor (event) {
-        return event.color
-      },
-      rnd (a, b) {
-        return Math.floor((b - a + 1) * Math.random()) + a
-      },
-    },
-  }
-</script>
+</style>

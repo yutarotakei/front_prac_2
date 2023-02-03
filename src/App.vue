@@ -38,13 +38,13 @@
 
     <v-app-bar color="primary" dark app clipped-left>
     <v-app-bar-nav-icon @click="drawer=!drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>Vuetify</v-toolbar-title>
+      <v-toolbar-title>英米文学テクスト分析ツール</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
       <v-btn text>For Enterprise</v-btn>
       <v-menu offset-y>
         <template v-slot:activator="{on}">
-        <v-btn v-on="on" text>Support<v-icon>mdi-menu-down</v-icon></v-btn>
+        <v-btn v-on="on" text>For Private<v-icon>mdi-menu-down</v-icon></v-btn>
         </template>
 
         <v-list>
@@ -82,39 +82,13 @@ export default {
     return{
         drawer: null,
         supports:[
-          {name: 'Consulting and suppourt',icon: 'mdi-vuetify'},
-          {name: 'Discord community',icon: 'mdi-discord'},
-          {name: 'Report a bug',icon: 'mdi-bug'},
-          {name: 'Github issue board',icon: 'mdi-github'},
-          {name: 'Stack overview',icon: 'mdi-stack-overflow'},
+          {name: 'Support',icon: 'mdi-vuetify'},
         ],
         nav_lists:[
           {
-            name: 'Getting Started',
+            name: '英米文学のテクスト分析',
             icon: 'mdi-speedometer',
-            lists:['Quick Start','Pre-made layouts']
-          },
-          {
-            name: 'Customization',
-            icon: 'mdi-cogs' 
-          },
-          {
-            name: 'Styles & animations',
-            icon: 'mdi-palette',
-            lists:['Colors','Content','Display']
-          },
-          {
-            name: 'UI Components',
-            icon: 'mdi-view-dashboard',
-            lists:['API explorer','Alerts']
-          },
-          {
-            name: 'Directives',
-            icon: 'mdi-function'
-          },
-          {
-            name: 'Preminum themes',
-            icon: 'mdi-vuetify'
+            lists:[]
           },
         ]
     }
