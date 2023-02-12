@@ -88,7 +88,7 @@ h1 {
   padding: 12px 0 8px;
   text-decoration: none;
   color: #67c5ff;
-  transition: .4s;
+  transition: .5s;
 }
 
 .btn-horizontal-border:before {
